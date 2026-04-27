@@ -1,0 +1,11 @@
+class TaskService {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Stream<QuerySnapshot> getTasksStream() {
+    return _firestore.collection('tasks').snapshots();
+  }
+
+  Future<DocumentReference> createTask(Map<String, dynamic> data) {
+    return _firestore.collection('tasks').add(data);
+  }
+}

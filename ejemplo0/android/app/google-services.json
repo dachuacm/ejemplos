@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "55967801615",
+    "project_id": "datos-appflutter",
+    "storage_bucket": "datos-appflutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55967801615:android:8d171b69727032b5bfde7a",
+        "android_client_info": {
+          "package_name": "com.example.ejemplo0"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvg9ZQ-0MTe85pr0QRF2HkedGaAOaPh38"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

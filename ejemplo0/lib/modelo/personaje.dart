@@ -34,13 +34,12 @@ class PersonajeFavorito {
     return {'nombre': nombre, 'serie': serie, 'imagen': imagen};
   }
 
-  factory PersonajeFavorito.fromMap(DataSnapshot datos) {
-    Map data = datos.children as Map<String, dynamic>;
+  factory PersonajeFavorito.fromMap(Map<dynamic, dynamic> datos) {
     return PersonajeFavorito(
       id: "0",
-      nombre: data['nombre'] ?? '',
-      serie: data['serie'] ?? '',
-      imagen: data['imagen'],
+      nombre: datos['nombre'] ?? '',
+      serie: datos['serie'] ?? '',
+      imagen: datos['imagen'],
     );
   }
 }

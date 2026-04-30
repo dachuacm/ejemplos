@@ -14,31 +14,14 @@ class DatosFBrealDBService {
 
   Stream<List<PersonajeFavorito>> consultarPesonajes() {
     DatabaseReference dbRef = _firedatabase.ref(databaseName);
-    final snapshot = dbRef.get();
+    return dbRef.onValue.map((event) {
+      final data = event.snapshot.value as Map<dynamic, dynamic>?;
+      if (data == null) return [];
 
-    /*   return _dbRef.onValue.map((event) {
-      final data = event.snapshot.value as Map<dynamic, dynamic>? ?? {};
-      return data.entries.map((e) => Task.fromMap(e.value, e.key)).toList();
-    }); */
-
-    return snapshot.asStream().map((snapshot) {
-      return snapshot.children
-          .map((doc) => PersonajeFavorito.fromMap(doc))
-          .toList();
+      return data.entries.map((entry) {
+        // Usamos entry.key por si necesitas el ID de Firebase más adelante
+        return PersonajeFavorito.fromMap(entry.value as Map<dynamic, dynamic>);
+      }).toList();
     });
-
-    /*
-
-    if (snapshot.exists) {
-      // snapshot.children contiene la lista ordenada de nodos hijos
-      for (final child in snapshot.children) {
-        final data = child.value as Map<dynamic, dynamic>;
-
-        // Creamos el objeto y lo añadimos a nuestra lista
-        listaPersonajes.add(PersonajeFavorito.fromMap(data));
-      }
-    }
-    return listaPersonajes;
-  */
   }
 }

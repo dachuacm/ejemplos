@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ejemplo0/data/repositorios/personaje_repo.dart';
 import 'package:ejemplo0/modelo/personaje.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ class PersonajesViewModel extends ChangeNotifier {
 
   List<PersonajeFavorito> _personajes = [];
   bool _isLoading = false;
+  StreamSubscription? _subscription;
 
   List<PersonajeFavorito> get listaPersonajes => _personajes;
   bool get isLoading => _isLoading;
@@ -18,12 +21,16 @@ class PersonajesViewModel extends ChangeNotifier {
   void fetchPersonajes() {
     _isLoading = true;
     notifyListeners();
-
-    _repo.getPersonajes().listen((personajeList) {
-      _personajes = personajeList;
+    _subscription = _repo.getPersonajes().listen((nuevaLista) {
+      _personajes = nuevaLista;
+      debugPrint("se cargo la lista");
       _isLoading = false;
       notifyListeners();
-    });
+    } /*,
+      onDone: () {
+        _isLoading = false;
+        notifyListeners();
+      },*/);
   }
 
   Future<void> agregar() async {
@@ -31,8 +38,8 @@ class PersonajesViewModel extends ChangeNotifier {
       // El ID lo genera automáticamente Firebase al insertar
       final nuevo = PersonajeFavorito(
         id: '',
-        nombre: "Kiko",
-        serie: "Chavo",
+        nombre: "Haku",
+        serie: "El Viaje de Chihiro",
         imagen: "",
       );
       await _repo.addPersonaje(nuevo);

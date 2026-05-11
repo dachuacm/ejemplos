@@ -23,14 +23,10 @@ class PersonajesViewModel extends ChangeNotifier {
     notifyListeners();
     _subscription = _repo.getPersonajes().listen((nuevaLista) {
       _personajes = nuevaLista;
-      debugPrint("se cargo la lista");
+     
       _isLoading = false;
       notifyListeners();
-    } /*,
-      onDone: () {
-        _isLoading = false;
-        notifyListeners();
-      },*/);
+    } );
   }
 
   Future<void> agregar() async {

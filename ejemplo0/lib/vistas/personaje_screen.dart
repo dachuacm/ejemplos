@@ -1,3 +1,4 @@
+import 'package:ejemplo0/vistas/view_models/auth_viewmodel.dart';
 import 'package:ejemplo0/vistas/view_models/personajes_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,9 +9,19 @@ class PersonajeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final personajesVM = Provider.of<PersonajesViewModel>(context);
-
+    final authVM = Provider.of<AuthViewModel>(context);
     return Scaffold(
-      appBar: AppBar(title: Text("MVVM Firebase")),
+      appBar: AppBar(
+        title: Text("MVVM Firebase"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              authVM.cerrarSesion(); // Acción al presionar el botón
+            },
+          ),
+        ],
+      ),
       body: personajesVM.isLoading
           ? Center(child: CircularProgressIndicator())
           : ListView.builder(
@@ -21,6 +32,7 @@ class PersonajeScreen extends StatelessWidget {
                 );
               },
             ),
+
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () => personajesVM.agregar(),
